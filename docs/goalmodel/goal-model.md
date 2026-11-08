@@ -1,6 +1,6 @@
 # A3 Prototype — Scoped Group Goal Model (V2)
 
-**Status:** V2, revised in Step 5 after evaluating Prototype V1 (see §7 and [`../traceability.md`](../traceability.md)). The V1 version of this file is preserved at the `v1` tag.
+**Status:** V2, revised in Step 5 after evaluating Prototype V1 (see §7 and [`../traceability.md`](../traceability.md)). Proposed for group review, not yet a confirmed team or stakeholder decision. The V1 version of this file is preserved at the `v1` tag.
 
 **Files:** `goal_model_sprint.py` generates the editable Mermaid source `goal_model_sprint.mmd` and a Mermaid Live Editor link. Diagrams: [`goal_model_sprint.svg`](goal_model_sprint.svg) (V2, current) and [`goal_model_sprint_v1.svg`](goal_model_sprint_v1.svg) (V1, for comparison).
 
@@ -8,16 +8,16 @@
 
 ## 1. System boundary and selected goals
 
-Our V1 prototype covers **weekly CSA box planning, informing members, processing restricted substitutions, and updating the packing checklist**. The four main goals are:
+Our prototype (V1 and V2) covers **weekly CSA box planning, informing members, processing restricted substitutions, and updating the packing checklist**. The four main goals are:
 
-| Group ID | Selected goal | Why it is in V1 |
+| Group ID | Selected goal | Why it is in scope |
 | --- | --- | --- |
 | SG-2 | Create a feasible weekly CSA box plan | **Core:** a box plan is needed before previews, requests, and packing. Mock harvest quantities are sufficient for testing. |
 | SG-5 | Members see reliable box information | **User-facing:** members need to distinguish an early estimate from the current confirmed contents. |
 | SG-8 | Handle swaps within farm limits | **Uncertain:** requests must balance member flexibility with available produce and the packing deadline. |
 | SG-13 | Pack the correct box for each member | **Core:** approval must actually reach the packing list; otherwise a swap status alone is insufficient. |
 
-V1 uses sample members and mock harvest data. **Out of scope:** full restaurant ordering, Saturday market accounting, offline synchronization, and organic-certification lot reports. We are deferring them because they do not need to be implemented to evaluate this short CSA workflow. Food-allergen and cross-contact safety cannot be validated with mock item labels; do not describe V1 as safety-certified.
+V1 and V2 use sample members and mock harvest data. **Out of scope:** full restaurant ordering, Saturday market accounting, offline synchronization, and organic-certification lot reports. We are deferring them because they do not need to be implemented to evaluate this short CSA workflow. Food-allergen and cross-contact safety cannot be validated with mock item labels; do not describe V1 as safety-certified.
 
 ## 2. Crosswalk: different Assignment 2 goal IDs
 
@@ -30,7 +30,7 @@ All three team members independently reused `G-1`, `G-2`, and other numbers. **T
 | SG-8: approved swaps and status | G-62, G-64, G-65, G-66 | G-46, G-47, G-49, G-93, G-94 | G-19, G-30, G-32 |
 | SG-13: correct packing | G-31, G-32, G-33, G-34 | G-2, G-10, G-11, G-20 | G-20, G-24 |
 
-**Mapping rule:** any V1 specification references `SG-*` as the stable group ID, and this table points back to the A2 model and its interview evidence. We have not silently renamed a teammate's G-ID as though the IDs matched.
+**Mapping rule:** both specifications (V1 and V2) reference `SG-*` as the stable group ID, and this table points back to the A2 model and its interview evidence. We have not silently renamed a teammate's G-ID as though the IDs matched.
 
 ## 3. Step 2: overlaps, dependencies, and decisions
 
@@ -49,7 +49,7 @@ Two A2 versions describe different operational deadlines:
 - **Proposal A:** stop member changes **24 hours before packing begins** (detailed teammate model, G-94).
 - **Proposal B:** use **Wednesday evening for a Friday pickup** (smaller teammate model, G-30 after reconciliation). The precise Wednesday hour is a proposed interpretation, not a verified stakeholder agreement.
 
-These are not necessarily contradictory without knowing the packing schedule. They **can lead to different deadlines**, however, and the team cannot assume one is agreed. The Mermaid diagram preserves *both* options in its `C-1` conflict area instead of deleting either.
+These are not necessarily contradictory without knowing the packing schedule. They **can lead to different deadlines**, however, and the team cannot assume one is agreed. The Mermaid diagram preserves *all* options (A and B, plus Raj's Proposal C added in V2) in its `C-1` conflict area instead of deleting any.
 
 **D-1 — provisional V1 compromise (analyst assumption):** Use the **earlier** of (a) `packing start - 24 hours` and (b) **Wednesday 8:00 p.m. for a Friday pickup**. For pickups on other days, apply the 24-hour-before-packing rule until a timetable is agreed. The application should display that week's cutoff (SG-16); requests received afterward are declined with a reason and cannot silently alter the finalized packing list (SG-17).
 
@@ -59,7 +59,7 @@ These are not necessarily contradictory without knowing the packing schedule. Th
 
 - **Proposal A has no interview evidence.** It appears only in an A2 goal model (G-94). No stakeholder said "24 hours before packing".
 - **Proposal B is stated by Hank:** "for a Friday box, we'd want the pause or swap by Wednesday evening" (T3/Hank-b:65).
-- **Proposal C (new) from Raj:** he wants to know "at least 48 hours before pickup" (T3/Raj:98) and wants swaps kept open "until packing is finalized" (T1/Raj:21).
+- **Proposal C (new) from Raj:** he wants to know "at least 48 hours before pickup" (T3/Raj:98) and wants swaps kept open "until packing is finalized" (T1/Raj:21). He also accepts that the farm sets "a clear cutoff" (T3/Raj:72) and is "open to an earlier cutoff for unusual weeks" (T3/Raj:74), so he is not opposed to a cutoff as such.
 - **Lucia's timeline:** she sends the contents "by Wednesday" so members can request swaps before packing (T3/Lucia:41). D-1's Wednesday 08:00 could therefore close swaps before members had seen the box.
 
 **D-2 — provisional V2 rule:** the cutoff is **Wednesday 20:00 for a Friday pickup**, and Lucia is warned to publish the box before the cutoff. This is the only farm-side deadline a stakeholder actually stated, and it leaves Thursday packing intact (SG-13). It does **not** by itself meet Raj's wish (Proposal C) to know the contents 48 hours before pickup (about Wednesday 09:00); that depends on Lucia publishing by then. Proposals A and C stay in the model; D-1 stays as a superseded decision. **Still requires confirmation from Lucia and Hank.**
@@ -85,7 +85,7 @@ A concrete deadline needs a packing time. We assume (**analyst assumption A-1**;
 
 | Input | V1 | V2 |
 | --- | --- | --- |
-| Pickup | Friday | Friday 09:00 |
+| Pickup | Friday | Friday 09:00 (hour assumed, A-1) |
 | Packing starts | Thursday 08:00 | Thursday 08:00 |
 | Proposal A (24 h before packing) | Wednesday 08:00 | Wednesday 08:00 (no interview evidence) |
 | Proposal B (Wednesday evening) | Wednesday 20:00 | Wednesday 20:00 |
@@ -112,4 +112,4 @@ If stakeholders give a different packing time, update this table and spec assump
 | SG-17 now separates "requests closed" (cutoff) from "list locked" (packing start). | O-3: V1 told members the list was locked while Lucia could still approve requests. |
 | SG-6 now also covers marking changes to the provisional estimate. | O-1: estimate changes were invisible to members (T2/Lucia:40, T1/Raj:21). |
 
-Goal satisfaction after V1: SG-2 and SG-13 satisfied; SG-5, SG-8 partially satisfied (see the traceability matrix). Deferred goals and needs (decline reasons and alternatives, pre-packing warning, swap value, substitute quantities, standing preferences) remain recorded in [`../traceability.md`](../traceability.md) §3–§4.
+Goal satisfaction after V1: SG-2 satisfied; SG-5, SG-8 and SG-13 partially satisfied (SG-13 via SG-15/O-6). After V2: SG-5 improved (O-1 resolved); SG-8 still partial (D-2 unconfirmed; O-4, O-5, O-12 deferred); SG-13 still partial (O-6 deferred). See the traceability matrix §5. Deferred goals and needs (decline reasons and alternatives, pre-packing warning, swap value, substitute quantities, standing preferences) remain recorded in [`../traceability.md`](../traceability.md) §3–§4.

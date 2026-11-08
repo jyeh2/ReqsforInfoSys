@@ -12,8 +12,8 @@ member swap requests, and packing, derived from the group's merged stakeholder g
 - Every SG goal MUST map to its source A2 member goal IDs via the crosswalk in
   `docs/goalmodel/goal-model.md`.
 - Every requirement in the Requirements Traceability Matrix (`docs/traceability.md`) MUST cite
-  stakeholder interview evidence (transcript + location), reached via the SG goal and its A2 source
-  goals, or be explicitly labeled an analyst assumption.
+  stakeholder interview evidence (transcript + location) or be explicitly labeled an analyst
+  assumption.
 - Every acceptance scenario MUST reference the `FR-###` it verifies.
 
 **Rationale**: The Requirements Traceability Matrix (interview → goal → requirement → code) must be
@@ -89,7 +89,7 @@ complexity; simplicity keeps both versions deployable and comparable.
   group).
 - **Data**: mock JSON/TS data checked into `frontend/`.
 - **Artifacts**: Spec Kit artifacts in `specs/`; goal model, traceability matrix, and learning log
-  in `docs/` (`goalmodel/goal-model.md`, `traceability.md`, `learning-log.md`).
+  in `docs/` (`goalmodel/goal-model.md`, `traceability.md`, `goalmodel/learning-log.md`).
 - **Users represented**: Lucia (farm planner), CSA member (e.g., Raj), packing crew.
 
 ## Development Workflow & Quality Gates
@@ -100,7 +100,7 @@ complexity; simplicity keeps both versions deployable and comparable.
 3. The plan's Constitution Check MUST pass (or violations be justified) before tasks are generated.
 4. `/speckit-analyze` SHOULD be run before implementation to check spec/plan/tasks consistency.
 5. Each Spec Kit step SHOULD be committed separately so the development history is preserved.
-6. The learning log (`docs/learning-log.md`) is authored by group members only; the SE agent MUST
+6. The learning log (`docs/goalmodel/learning-log.md`) is authored by group members only; the SE agent MUST
    NOT write or edit it.
 
 ## Governance
@@ -111,4 +111,4 @@ complexity; simplicity keeps both versions deployable and comparable.
   added or materially expanded principles/sections, PATCH for clarifications.
 - Reviews of specs, plans, and tasks MUST verify compliance with Principles I–VII.
 
-**Version**: 1.0.1 | **Ratified**: 2026-11-08 | **Last Amended**: 2026-11-08
+**Version**: 1.1.0 | **Ratified**: 2026-11-08 | **Last Amended**: 2026-11-08

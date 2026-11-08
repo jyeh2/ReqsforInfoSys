@@ -119,12 +119,13 @@ tests. Only rows whose status changed are listed; all other rows in §1 are unch
 | Requirement | Interview evidence | Goal | Code / Implementation (V2) | V1 status → V2 status |
 |---|---|---|---|---|
 | **FR-006 / FR-008** Estimate changes marked; confirmed-vs-estimate summary; units | T2/Lucia:35, T2/Lucia:40, T1/Raj:21, T3/Raj:96 | SG-6, SG-7 | `domain/memberBox.ts` `estimateChanges`, `confirmedVsEstimate`, `laterChanges`, `formatQty`; `MemberView.tsx` | Partially → **Fully satisfied** (O-1, O-8, O-10 resolved) |
-| **FR-009** Cutoff by D-2 (Wed 20:00); Proposals A, B and C shown with sources | T3/Hank-b:65, T3/Raj:98, T3/Lucia:41 | SG-16 | `domain/schedule.ts` `computeCutoff`; `CutoffNotice.tsx` | Partially → **Fully satisfied (provisional; stakeholder confirmation still open)** (O-2) |
+| **FR-009** Cutoff by D-2 (Wed 20:00); Proposals A, B and C shown with sources | T3/Hank-b:65, T3/Raj:98, T3/Lucia:41 | SG-16 | `domain/schedule.ts` `computeCutoff`; `CutoffNotice.tsx` | Partially → **Partially satisfied** (O-2 still open: D-2 is unconfirmed, and publishing before Raj's 48 h is only encouraged by a warning, not required) |
 | **FR-013** Status message matches current status | T3/Raj:104 | SG-12 | `MemberView.tsx` (last request + `effectiveStatus`) | Partially → **Partially satisfied** (O-9 fixed; O-5 decline reasons deferred) |
 | **FR-014** Late requests: "Received after the swap cutoff" | T3/Hank-b:65 | SG-17, SG-9 | `domain/swaps.ts` `lateReason` | Partially → **Fully satisfied** (O-3, O-7 resolved) |
 | **FR-023** (new) Draft warning; "not available this week" | T3/Lucia:41, T3/Raj:98 | SG-16, SG-6 | `PlannerView.tsx`; `domain/schedule.ts` `timeUntil`; `domain/swaps.ts` `swapsUnavailableThisWeek` | — → **Fully satisfied** |
 | **FR-024** (new) Requests closed vs list locked | T3/Lucia:81 | SG-17, SG-12 | `domain/swaps.ts` `closedMessage`; `MemberView.tsx` | — → **Fully satisfied** |
 | FR-010, FR-012, FR-017 | (see §1) | | unchanged | Partially (O-4, O-5, O-6, O-12 deferred) |
 
-**Observation status after V2**: resolved O-1, O-2 (provisional), O-3, O-7, O-8, O-9, O-10. Deferred,
-still recorded: O-4, O-5, O-6, O-11, O-12.
+**Observation status after V2**: resolved O-1, O-3, O-7, O-8, O-9, O-10. **Improved but still open: O-2**
+(evidence-based D-2 adopted; needs Lucia/Hank confirmation). Deferred, still recorded: O-4, O-5, O-6,
+O-11, O-12.

@@ -2,7 +2,7 @@
 
 | | V1 | V2 |
 |---|---|---|
-| Code | [`v1` branch](../../../tree/v1) | [`v2` branch](../../../tree/v2) |
+| Code | [`v1` branch](https://github.com/jyeh2/ReqsforInfoSys/tree/v1) | [`v2` branch](https://github.com/jyeh2/ReqsforInfoSys/tree/v2) |
 | Prototype | https://jyeh2.github.io/ReqsforInfoSys/v1/ | https://jyeh2.github.io/ReqsforInfoSys/v2/ |
 | Spec Kit artifacts | [`specs/001-csa-box-swaps/`](../specs/001-csa-box-swaps/) | [`specs/002-csa-box-swaps-v2/`](../specs/002-csa-box-swaps-v2/) (copied from 001, then revised) |
 | Goal model | `docs/goalmodel/` at tag `v1` | [`docs/goalmodel/goal-model.md`](goalmodel/goal-model.md) §7 lists the changes |

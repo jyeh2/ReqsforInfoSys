@@ -29,7 +29,7 @@ MERMAID = r'''flowchart TB
     SG4["SG-4: Choose contents meeting promised share value"]
 
     SG5["SG-5: Members see reliable box information"]
-    SG6["SG-6: Label early estimates as provisional"]
+    SG6["SG-6: Label early estimates as provisional and mark changes to them"]
     SG7["SG-7: Show confirmed contents and later changes"]
 
     SG8["SG-8: Handle swaps within farm limits"]
@@ -38,7 +38,7 @@ MERMAID = r'''flowchart TB
     SG11["SG-11: Lucia approves or declines requests"]
     SG12["SG-12: Show status to members and Lucia"]
     SG16["SG-16: Display the week's provisional cutoff rule"]
-    SG17["SG-17: Explain late requests without changing a locked list"]
+    SG17["SG-17: Decline late requests with a reason; requests close at cutoff, list locks at packing"]
 
     SG13["SG-13: Pack the correct box for each member"]
     SG14["SG-14: Apply approved swaps to the packing list"]
@@ -77,9 +77,10 @@ MERMAID = r'''flowchart TB
         RULE["D-2 (V2): Wednesday 20:00 for Friday pickup; warn Lucia to publish before cutoff"]
         NOTE["Open: Lucia and Hank to confirm D-2 and packing start"]
         REQ24 -.-> OLD
+        REQWED -.-> OLD
         OLD -. "V1 evaluation O-2" .-> RULE
         REQWED -.-> RULE
-        REQ48 -.-> RULE
+        REQ48 -. "not met by D-2 alone" .-> RULE
         RULE -.-> NOTE
     end
 

@@ -32,7 +32,7 @@
 ## Notes
 
 - The cutoff conflict (C-1) is intentionally carried as "NEEDS STAKEHOLDER CLARIFICATION" text, not
-  a `[NEEDS CLARIFICATION]` marker: a provisional rule (D-1) exists, so planning is not blocked.
+  a `[NEEDS CLARIFICATION]` marker: a provisional rule (D-2 in V2; D-1 in V1) exists, so planning is not blocked.
 - FR-019–FR-021 (role switcher, demo clock, reset) are prototype-support behaviors, not stakeholder
   goals; they are labeled as such and carry no SG reference.
 - Interview evidence is recorded in the Step 4 traceability matrix (`docs/traceability.md`), via the

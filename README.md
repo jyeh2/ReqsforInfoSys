@@ -28,7 +28,7 @@ Supporting documents:
 | | Version 1 | Version 2 |
 |---|---|---|
 | Spec Kit artifacts | [`specs/001-csa-box-swaps/`](specs/001-csa-box-swaps/) | [`specs/002-csa-box-swaps-v2/`](specs/002-csa-box-swaps-v2/) |
-| Swap cutoff | D-1: earlier of two proposals → Wed 08:00 | D-2: Wed 20:00 (stakeholder-stated), still provisional |
+| Swap cutoff | D-1: earlier of two proposals → Wed 08:00 | D-2: Wednesday evening (Hank) → 20:00 assumed; still provisional |
 | Key change | — | Members see changes to the provisional estimate; "requests closed" is separate from "list locked"; Lucia is warned to publish before the cutoff |
 
 To try either prototype, use the **role switcher** (Lucia, member or packer) and the **demo clock** in

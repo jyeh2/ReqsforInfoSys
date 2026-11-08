@@ -10,7 +10,7 @@
 sprint goal model in docs/goalmodel/goal-model.md (SG-1 subtree). Lucia plans boxes from mock harvest
 quantities to meet the promised share value; members see a provisional estimate, then confirmed
 contents with changes indicated; members request swaps from farm-approved substitutes before a
-displayed provisional cutoff (D-1); Lucia approves or declines; status visible to both; late
+displayed provisional cutoff (D-1, the V1 rule; V2 uses D-2); Lucia approves or declines; status visible to both; late
 requests are explained without altering a locked list; approved swaps update the packing list;
 packers check each box against the current list."
 
@@ -41,7 +41,7 @@ preferences (O-11).
 
 - Q: After confirmation, should members also see how the confirmed box differs from the first published estimate, or only changes made after confirmation? → A: Show a separate "Different from the first estimate" summary in the confirmed view, plus markers for changes made after confirmation.
 - Q: Should a swap approved before confirmation be marked as a change in the confirmed view (O-10)? → A: Yes. A member's approved swap is always marked "Your approved swap", whenever it was approved.
-- Q: What happens if the box is still a Draft when the cutoff passes? → A: The cutoff is not moved. Lucia sees a warning, and members are told swap requests were not available this week.
+- Q: What happens if the box is still a Draft when the cutoff passes? → A: The cutoff is not moved. Lucia sees a warning, and members are told swap requests were not available this week. *(Team decision without interview evidence; recorded as assumption A-8.)*
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -144,15 +144,15 @@ decline; switch back and see the status. Move the demo clock past the cutoff and
    recorded as "Declined" with the reason "Received after the swap cutoff (<time>)", Lucia sees it in
    her queue, and the box is unchanged. **[V2]** The message does not say the list is locked, because
    Lucia can still decide earlier requests until packing starts. (FR-014, FR-024)
+7. **Given** a request would need more of a substitute than remains in the harvest, **When**
+   Lucia reviews it, **Then** she sees that approving it is not possible and can only decline.
+   (FR-012)
 8. **[V2]** **Given** the cutoff has passed but packing has not started, **When** a member views their
    box, **Then** they see "Swap requests closed — the farm is finishing decisions on earlier requests;
    the packing list locks at <packing start>". (FR-024)
 9. **[V2]** **Given** the box is still a Draft, **When** Lucia opens the planner, **Then** she sees a
    warning that members cannot request swaps until it is published, and the time left until the
    cutoff. (FR-023)
-7. **Given** a request would need more of a substitute than remains in the harvest, **When**
-   Lucia reviews it, **Then** she sees that approving it is not possible and can only decline.
-   (FR-012)
 
 ---
 
@@ -308,7 +308,8 @@ These are preserved from the goal model; they are not removed from scope.
   evidence found** in any transcript;
   (B) Wednesday evening for a Friday pickup — Hank, T3/Hank-b:65;
   **[V2]** (C) Raj wants to know "at least 48 hours before pickup" and to keep swaps open until packing
-  is finalized — T3/Raj:98, T1/Raj:21. Lucia sends contents "by Wednesday" so members can request swaps
+  is finalized — T3/Raj:98, T1/Raj:21; he accepts "a clear cutoff" and an earlier one for unusual
+  weeks — T3/Raj:72, T3/Raj:74. Lucia sends contents "by Wednesday" so members can request swaps
   before packing — T3/Lucia:41.
 - **D-1 — V1 rule (superseded)**: earlier of A and B → Wednesday 08:00. Evaluation showed it rested on
   a proposal with no stakeholder evidence and could close swaps before the contents were sent (O-2).
@@ -355,7 +356,7 @@ real authentication; multiple weeks or history.
 
 ## Assumptions
 
-- **A-1** (analyst): pickup is Friday 09:00; packing starts Thursday 08:00 (T2/Lucia:10 "we usually
+- **A-1** (analyst): pickup is Friday 09:00 (the hour is assumed; it sets Proposal C's Wednesday 09:00); packing starts Thursday 08:00 (T2/Lucia:10 "we usually
   pack on Thursday"); "Wednesday evening" means Wednesday 20:00.
 - **A-2** (analyst): SG-16 and SG-17 were added during goal analysis and are not yet confirmed by
   stakeholders.
@@ -367,5 +368,9 @@ real authentication; multiple weeks or history.
 - **A-6**: requests submitted before the cutoff can still be decided by Lucia until packing starts.
 - **A-7**: all roles use the same browser during a demo; state may be kept in that browser and is
   restored by "Reset demo".
+- **A-8** (analyst, Clarification Q3): if the box is still a Draft at the cutoff, the cutoff is not
+  moved and members get no swaps that week. No stakeholder stated this; Raj may object (T2/Raj:91,
+  T1/Raj:21), and Lucia's process assumes members can swap after she sends the contents (T3/Lucia:41).
+  To be confirmed with stakeholders.
 - **Dependency**: goal model `docs/goalmodel/goal-model.md` (SG IDs, crosswalk, C-1, D-2); V1
   evaluation `docs/traceability.md` (O-1 to O-12).

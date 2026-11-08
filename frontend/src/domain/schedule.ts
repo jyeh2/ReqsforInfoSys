@@ -1,4 +1,4 @@
-// Schedule rules — FR-009 (cutoff via decision D-1), FR-014/FR-017 (phases).
+// Schedule rules — FR-009 (cutoff via decision D-2), FR-014/FR-017/FR-024 (phases).
 import type { DateTime, Phase, WeekSchedule } from './types';
 
 function parse(dt: DateTime): Date {
@@ -18,7 +18,7 @@ export interface CutoffInfo {
   proposalA: DateTime;
   /** Proposal B (C-1): Wednesday 20:00 of the pickup week — Hank, T3/Hank-b:65. */
   proposalB: DateTime;
-  /** V2 Proposal C (C-1): 48 hours before pickup — Raj's information deadline, T3/Raj:98. */
+  /** V2 Proposal C (C-1): 48 hours before pickup — Raj, T3/Raj:98 (he also accepts a clear cutoff, T3/Raj:72). */
   proposalC: DateTime;
   /** V2 D-2: the cutoff is Proposal B. */
   cutoff: DateTime;
