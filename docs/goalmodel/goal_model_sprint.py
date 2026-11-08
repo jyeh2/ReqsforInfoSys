@@ -7,7 +7,7 @@ Outputs:
     goal_model_sprint.mmd   -- editable Mermaid source
     a Mermaid Live Editor link in the terminal, from which SVG can be exported
 
-IMPORTANT: The V1 scope and cutoff are PROPOSALS, not approved stakeholder
+IMPORTANT: The scope and the V2 cutoff (D-2) are PROPOSALS, not approved stakeholder
 requirements. The conflicting alternatives remain visible in the diagram.
 
 Group IDs SG-* are new, unique identifiers. Each teammate used different G-*
@@ -68,17 +68,22 @@ MERMAID = r'''flowchart TB
     SG17 -. "do not silently alter" .-> SG15
 
     subgraph CUTOFF["C-1: Change-request cutoff -- conflicting A2 proposals"]
-        REQ24["Proposal A: stop changes 24 hours before packing"]
-        REQWED["Proposal B: Wednesday evening for Friday pickup"]
+        REQ24["Proposal A: stop changes 24 hours before packing (A2 model only; no interview evidence)"]
+        REQWED["Proposal B: Wednesday evening for Friday pickup (Hank)"]
+        REQ48["Proposal C: know 48 h before pickup; swaps open until packing (Raj)"]
         REQ24 -. "potentially different deadlines" .-> REQWED
-        RULE["D-1: Proposed V1 rule: use the EARLIER deadline"]
-        NOTE["Open: exact packing schedule and stakeholder agreement"]
-        REQ24 -.-> RULE
+        REQ48 -. "member flexibility vs packing" .-> REQWED
+        OLD["D-1 (V1, superseded): use the EARLIER deadline"]
+        RULE["D-2 (V2): Wednesday 20:00 for Friday pickup; box published before cutoff"]
+        NOTE["Open: Lucia and Hank to confirm D-2 and packing start"]
+        REQ24 -.-> OLD
+        OLD -. "V1 evaluation O-2" .-> RULE
         REQWED -.-> RULE
+        REQ48 -.-> RULE
         RULE -.-> NOTE
     end
 
-    SG16 -. "proposed V1 assumption" .-> RULE
+    SG16 -. "proposed V2 rule" .-> RULE
 
     classDef primary fill:#dbeafe,stroke:#2563eb,color:#172554,stroke-width:2px
     classDef mid fill:#edf2ff,stroke:#6485b6,color:#1e293b
@@ -86,12 +91,14 @@ MERMAID = r'''flowchart TB
     classDef alternatives fill:#fff2cf,stroke:#bf8b19,color:#603b06
     classDef decision fill:#e2f4e8,stroke:#3f8a58,color:#14532d
     classDef unresolved fill:#fde8e8,stroke:#c74b4b,color:#7f1d1d
+    classDef superseded fill:#eeeeee,stroke:#9e9e9e,color:#616161,stroke-dasharray:4 3
 
     class SG1 primary
     class SG2,SG5,SG8,SG13 mid
     class SG3,SG4,SG6,SG7,SG9,SG10,SG11,SG12,SG14,SG15,SG16,SG17 leaf
-    class REQ24,REQWED alternatives
+    class REQ24,REQWED,REQ48 alternatives
     class RULE decision
+    class OLD superseded
     class NOTE unresolved
 '''
 
@@ -110,10 +117,10 @@ def mermaid_edit_link(code: str) -> str:
 def main() -> None:
     output = Path(__file__).with_name("goal_model_sprint.mmd")
     output.write_text(MERMAID + "\n", encoding="utf-8")
-    print("=== PROPOSED A3 SPRINT MODEL (Step 1 + Step 2) ===")
+    print("=== A3 SPRINT MODEL (V2: Step 5 revision) ===")
     print(mermaid_edit_link(MERMAID))
     print(f"\nMermaid source saved to: {output.name}")
-    print("Status: model and V1 cutoff are PROPOSALS; group approval is still needed.")
+    print("Status: D-2 cutoff is a PROPOSAL; stakeholder confirmation is still needed.")
 
 
 if __name__ == "__main__":
