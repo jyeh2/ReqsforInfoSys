@@ -10,7 +10,7 @@ member swap requests, and packing, derived from the group's merged stakeholder g
 - Every functional requirement in a spec MUST carry an ID (`FR-###`) and MUST cite the SG leaf
   goal(s) it implements (e.g., `[SG-6]`).
 - Every SG goal MUST map to its source A2 member goal IDs via the crosswalk in
-  `docs/goal-model.md`.
+  `docs/goalmodel/goal-model.md`.
 - Every SG leaf goal MUST cite stakeholder interview evidence (transcript + location) or be
   explicitly labeled an analyst assumption.
 - Every acceptance scenario MUST reference the `FR-###` it verifies.
@@ -88,12 +88,12 @@ complexity; simplicity keeps both versions deployable and comparable.
   group).
 - **Data**: mock JSON/TS data checked into `frontend/`.
 - **Artifacts**: Spec Kit artifacts in `specs/`; goal model, traceability matrix, and learning log
-  in `docs/` (`goal-model.md`, `traceability.md`, `learning-log.md`).
+  in `docs/` (`goalmodel/goal-model.md`, `traceability.md`, `learning-log.md`).
 - **Users represented**: Lucia (farm planner), CSA member (e.g., Raj), packing crew.
 
 ## Development Workflow & Quality Gates
 
-1. Goal model and scope decisions recorded in `docs/goal-model.md` before `/speckit-specify`.
+1. Goal model and scope decisions recorded in `docs/goalmodel/goal-model.md` before `/speckit-specify`.
 2. `/speckit-specify` → `/speckit-clarify` → `/speckit-plan` → `/speckit-tasks` →
    `/speckit-implement`, with a human review between each step.
 3. The plan's Constitution Check MUST pass (or violations be justified) before tasks are generated.

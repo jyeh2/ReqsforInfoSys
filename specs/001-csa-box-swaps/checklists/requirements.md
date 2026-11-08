@@ -35,5 +35,5 @@
   a `[NEEDS CLARIFICATION]` marker: a provisional rule (D-1) exists, so planning is not blocked.
 - FR-019–FR-021 (role switcher, demo clock, reset) are prototype-support behaviors, not stakeholder
   goals; they are labeled as such and carry no SG reference.
-- Interview evidence per SG leaf is still TODO in `docs/goal-model.md` §8 (needed for Step 4, not
+- Interview evidence per SG leaf is not yet recorded (goal model crosswalk points to A2 files) (needed for Step 4, not
   for planning).

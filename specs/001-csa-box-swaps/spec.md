@@ -7,14 +7,14 @@
 **Status**: Draft (V1)
 
 **Input**: User description: "CSA weekly box planning and member swap prototype (V1), implementing the
-sprint goal model in docs/goal-model.md (SG-1 subtree). Lucia plans boxes from mock harvest
+sprint goal model in docs/goalmodel/goal-model.md (SG-1 subtree). Lucia plans boxes from mock harvest
 quantities to meet the promised share value; members see a provisional estimate, then confirmed
 contents with changes indicated; members request swaps from farm-approved substitutes before a
 displayed provisional cutoff (D-1); Lucia approves or declines; status visible to both; late
 requests are explained without altering a locked list; approved swaps update the packing list;
 packers check each box against the current list."
 
-**Goal model**: [`docs/goal-model.md`](../../docs/goal-model.md). Every functional requirement
+**Goal model**: [`docs/goalmodel/goal-model.md`](../../docs/goalmodel/goal-model.md). Every functional requirement
 cites the SG goal(s) it implements in square brackets, e.g. `[SG-6]`.
 
 ## User Scenarios & Testing *(mandatory)*
@@ -30,7 +30,7 @@ and whether the harvest is enough for every member. She first publishes the plan
 estimate, then later confirms it.
 
 **Why this priority**: Core (SG-2). Nothing can be shown to members, swapped or packed until a box
-plan exists (dependency R-3).
+plan exists (dependency SG-2 → SG-5).
 
 **Independent Test**: As Lucia, build a plan from the mock harvest, publish it as provisional, then
 confirm it. Delivers a feasible weekly plan on its own.
@@ -119,7 +119,7 @@ The packing crew sees one packing list per member that includes the confirmed co
 member's approved swaps. They check off each item and mark the box as checked.
 
 **Why this priority**: Core (SG-13). An approved swap has value only if it reaches the physical box
-(R-5).
+(dependency SG-11 → SG-14 → SG-15).
 
 **Independent Test**: As a packer, open the packing lists after a swap was approved and verify the
 member's list includes the substitute; check all items and mark the box done.
@@ -292,4 +292,4 @@ real authentication; multiple weeks or history.
 - **A-6**: requests submitted before the cutoff can still be decided by Lucia until packing starts.
 - **A-7**: all roles use the same browser during a demo; state may be kept in that browser and is
   restored by "Reset demo".
-- **Dependency**: goal model `docs/goal-model.md` (SG IDs, C-1, D-1, assumptions A-1–A-5).
+- **Dependency**: goal model `docs/goalmodel/goal-model.md` (SG IDs, crosswalk, C-1, D-1).

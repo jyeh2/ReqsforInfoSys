@@ -11,7 +11,7 @@ IMPORTANT: The V1 scope and cutoff are PROPOSALS, not approved stakeholder
 requirements. The conflicting alternatives remain visible in the diagram.
 
 Group IDs SG-* are new, unique identifiers. Each teammate used different G-*
-IDs in Assignment 2. See docs/goal-model.md for the source crosswalk.
+IDs in Assignment 2. See docs/goalmodel/goal-model.md for the source crosswalk.
 """
 
 from __future__ import annotations
