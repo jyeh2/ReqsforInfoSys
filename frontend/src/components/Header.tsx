@@ -4,7 +4,7 @@ import { useStore } from '../state/store';
 
 export type Role = 'lucia' | 'member' | 'packer';
 
-const PHASE_LABEL = { open: 'Swaps open', locked: 'Locked for packing', packing: 'Packing' } as const;
+const PHASE_LABEL = { open: 'Swaps open', locked: 'Requests closed', packing: 'Packing — list locked' } as const;
 
 interface Props {
   role: Role;
@@ -20,6 +20,7 @@ export function Header({ role, setRole, memberId, setMemberId }: Props) {
   const presets = [
     { label: 'Mon 09:00', value: '2026-11-09T09:00' },
     { label: 'Tue 12:00', value: '2026-11-10T12:00' },
+    { label: 'Wed 12:00', value: '2026-11-11T12:00' },
     { label: `Cutoff (${formatDateTime(cutoff)})`, value: cutoff },
     { label: 'Wed 21:00', value: '2026-11-11T21:00' },
     { label: 'Packing starts', value: state.schedule.packingStart },

@@ -1,7 +1,7 @@
 // End-to-end walkthrough of specs/001-csa-box-swaps/quickstart.md at the state level.
 import { describe, expect, it } from 'vitest';
 import { createMockState } from '../data/mockWeek';
-import { memberChanges } from '../domain/memberBox';
+import { memberBox } from '../domain/memberBox';
 import { isBoxChecked, packingList } from '../domain/packing';
 import { effectiveStatus } from '../domain/swaps';
 import { reducer, type Action } from './reducer';
@@ -21,18 +21,18 @@ describe('quickstart walkthrough', () => {
     const [rajReq, meiReq] = s.requests;
     s = run([{ type: 'approve', id: rajReq.id }, { type: 'decline', id: meiReq.id }], s);
 
-    expect(memberChanges(s, 'raj')[0].reason).toBe('swap');
+    expect(memberBox(s, 'raj').some((l) => l.swappedFrom === 'potatoes')).toBe(true);
     expect(packingList(s, 'raj')!.some((l) => l.itemId === 'sweetpotatoes')).toBe(true);
     expect(packingList(s, 'mei')!.some((l) => l.itemId === 'kale')).toBe(true);
 
     // late request recorded as Declined with a reason; box unchanged (US3-6, FR-014)
     const late = run([
-      { type: 'setClock', clock: '2026-11-11T08:00' },
+      { type: 'setClock', clock: '2026-11-11T20:00' },
       { type: 'submitRequest', memberId: 'sam', originalItemId: 'kale', substituteItemId: 'beets' },
     ], s);
     expect(late.requests).toHaveLength(3);
     expect(late.requests[2]).toMatchObject({ status: 'declined', memberId: 'sam' });
-    expect(late.requests[2].reason).toMatch(/Received after the cutoff/);
+    expect(late.requests[2].reason).toMatch(/Received after the swap cutoff/);
     expect(packingList(late, 'sam')!.some((l) => l.itemId === 'kale')).toBe(true);
 
     // pending at packing start → not reviewed, list unchanged (edge case)

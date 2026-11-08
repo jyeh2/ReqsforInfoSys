@@ -19,7 +19,8 @@ Start with **Reset demo**. Clock: Mon 09:00.
 3. Publish. Change Apples 2 → 3 lb. **Member (Raj)**: Apples line marked "Changed since first estimate:
    was 2 lb Apples". → US2-5, O-1
 4. **Raj**: request Potatoes → Sweet potatoes; the message shows "Pending". **Lucia** approves; Raj's
-   message now shows "Approved". → FR-013, O-9
+   "My requests" shows "Approved". Staying in Raj's view and moving the clock to packing start with a
+   pending request changes the message to "Not reviewed before packing". → FR-013, O-9
 5. **Lucia**: confirm. **Raj**: "Different from the first estimate" lists Apples 2 → 3 lb; the Sweet
    potatoes line is marked "Your approved swap (replaces 2 lb Potatoes)". → US2-6, US2-7, O-8, O-10
 6. Clock **Wed 12:00**: swaps are still open (V1 would have closed them at Wed 08:00). → O-2

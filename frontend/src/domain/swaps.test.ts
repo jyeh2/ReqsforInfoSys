@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { canApprove, declineRequestsForRemovedItems, effectiveStatus, substituteOptions, validateRequest } from './swaps';
+import { canApprove, closedMessage, swapsUnavailableThisWeek, declineRequestsForRemovedItems, effectiveStatus, substituteOptions, validateRequest } from './swaps';
 import { confirmedState, req } from './testState';
 
 describe('swap rules (FR-010–FR-014, FR-017)', () => {
@@ -14,16 +14,24 @@ describe('swap rules (FR-010–FR-014, FR-017)', () => {
     const s = confirmedState();
     expect(validateRequest(s, 'raj', 'potatoes', 'sweetpotatoes', '2026-11-10T12:00').ok).toBe(true);
   });
-  it('marks otherwise-valid requests at or after the cutoff as late (FR-014)', () => {
+  it('V2: accepts requests on Wednesday midday (D-2 cutoff is Wed 20:00)', () => {
     const s = confirmedState();
-    const r = validateRequest(s, 'raj', 'potatoes', 'sweetpotatoes', '2026-11-11T08:00');
+    expect(validateRequest(s, 'raj', 'potatoes', 'sweetpotatoes', '2026-11-11T12:00').ok).toBe(true);
+  });
+  it('marks otherwise-valid requests at or after the cutoff as late (FR-014, V2 wording)', () => {
+    const s = confirmedState();
+    const r = validateRequest(s, 'raj', 'potatoes', 'sweetpotatoes', '2026-11-11T20:00');
     expect(r.ok).toBe(false);
     expect(r.late).toBe(true);
-    expect(r.reason).toMatch(/Received after the cutoff.*locked for packing/);
+    expect(r.reason).toBe('Received after the swap cutoff (Wed 11-11 20:00).');
+    expect(r.reason).not.toMatch(/locked/);
+  });
+  it('V2: closed message separates requests closed from list locked (FR-024)', () => {
+    expect(closedMessage(confirmedState())).toMatch(/Swap requests closed.*packing list locks at Thu 11-12 08:00/);
   });
   it('does not mark invalid late requests as late', () => {
     const s = confirmedState();
-    expect(validateRequest(s, 'raj', 'beets', 'sweetpotatoes', '2026-11-11T09:00').late).toBeUndefined();
+    expect(validateRequest(s, 'raj', 'beets', 'sweetpotatoes', '2026-11-11T21:00').late).toBeUndefined();
   });
   it('rejects a second active request for the same item', () => {
     const s = confirmedState();
@@ -53,5 +61,12 @@ describe('swap rules (FR-010–FR-014, FR-017)', () => {
     s.requests = [req({})];
     s.plan.lines = s.plan.lines.filter((l) => l.itemId !== 'potatoes');
     expect(declineRequestsForRemovedItems(s, '2026-11-10T12:00')[0].status).toBe('declined');
+  });
+  it('V2: box first published after the cutoff means no swaps this week (FR-023)', () => {
+    const s = confirmedState();
+    s.plan.publishedAt = '2026-11-11T21:00';
+    expect(swapsUnavailableThisWeek(s)).toBe(true);
+    s.plan.publishedAt = '2026-11-09T09:00';
+    expect(swapsUnavailableThisWeek(s)).toBe(false);
   });
 });

@@ -14,11 +14,13 @@ function format(date: Date): DateTime {
 }
 
 export interface CutoffInfo {
-  /** Proposal A (C-1): 24 hours before packing starts. */
+  /** Proposal A (C-1): 24 hours before packing starts. No interview evidence (A2 model only). */
   proposalA: DateTime;
-  /** Proposal B (C-1): Wednesday 20:00 of the pickup week (A-1: "evening" = 20:00). */
+  /** Proposal B (C-1): Wednesday 20:00 of the pickup week — Hank, T3/Hank-b:65. */
   proposalB: DateTime;
-  /** D-1: the earlier of A and B. */
+  /** V2 Proposal C (C-1): 48 hours before pickup — Raj's information deadline, T3/Raj:98. */
+  proposalC: DateTime;
+  /** V2 D-2: the cutoff is Proposal B. */
   cutoff: DateTime;
 }
 
@@ -34,10 +36,11 @@ export function computeCutoff(schedule: WeekSchedule): CutoffInfo {
 
   const proposalA = format(a);
   const proposalB = format(wed);
-  return { proposalA, proposalB, cutoff: proposalA < proposalB ? proposalA : proposalB };
+  const proposalC = format(new Date(pickup.getTime() - 48 * 60 * 60 * 1000));
+  return { proposalA, proposalB, proposalC, cutoff: proposalB };
 }
 
-/** open: swaps accepted · locked: at/after cutoff · packing: at/after packing start. */
+/** open: swaps accepted · locked: requests closed (at/after cutoff) · packing: list locked (at/after packing start). */
 export function phaseAt(clock: DateTime, schedule: WeekSchedule): Phase {
   if (clock >= schedule.packingStart) return 'packing';
   if (clock >= computeCutoff(schedule).cutoff) return 'locked';
@@ -49,4 +52,15 @@ const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 export function formatDateTime(dt: DateTime): string {
   const d = parse(dt);
   return `${DAYS[d.getDay()]} ${dt.slice(5, 10)} ${dt.slice(11)}`;
+}
+
+/** V2 FR-023: "2 d 11 h" until `to`, or null if `to` has passed. */
+export function timeUntil(from: DateTime, to: DateTime): string | null {
+  const ms = parse(to).getTime() - parse(from).getTime();
+  if (ms <= 0) return null;
+  const totalH = Math.floor(ms / 3_600_000);
+  const d = Math.floor(totalH / 24);
+  const h = totalH % 24;
+  const m = Math.floor((ms % 3_600_000) / 60_000);
+  return d > 0 ? `${d} d ${h} h` : h > 0 ? `${h} h ${m} min` : `${m} min`;
 }

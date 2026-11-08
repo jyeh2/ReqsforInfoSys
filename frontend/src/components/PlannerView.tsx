@@ -1,6 +1,6 @@
 // Lucia — planning: FR-001 to FR-005, FR-018
 import { boxValue, canEditPlan, canPublish, infeasibleItems } from '../domain/plan';
-import { formatDateTime, phaseAt } from '../domain/schedule';
+import { computeCutoff, formatDateTime, phaseAt, timeUntil } from '../domain/schedule';
 import { useStore } from '../state/store';
 import { CutoffNotice } from './CutoffNotice';
 
@@ -22,6 +22,16 @@ export function PlannerView() {
         <h2>This week's box plan</h2>
         <span className={`badge status-${plan.status}`}>{STATUS_TEXT[plan.status]}</span>
       </div>
+      {plan.status === 'draft' && (() => {
+        // V2 FR-023: warn while the box is still a draft.
+        const left = timeUntil(state.clock, computeCutoff(state.schedule).cutoff);
+        return (
+          <p className="warn">
+            Members can't request swaps until you publish this box.{' '}
+            {left ? `${left} left until the swap cutoff.` : 'The swap cutoff has passed — members will be told swaps are not available this week.'}
+          </p>
+        );
+      })()}
       <CutoffNotice detailed />
       {!edit.ok && <p className="warn">{edit.reason}</p>}
 

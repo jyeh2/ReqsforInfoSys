@@ -37,6 +37,10 @@ export interface BoxPlan {
   confirmedAt?: DateTime;
   /** Snapshot taken at confirmation, used to mark later changes (FR-008). */
   confirmedLines?: PlanLine[];
+  /** V2: snapshot at first publish — baseline for estimate changes (FR-008). */
+  publishedLines?: PlanLine[];
+  /** V2: demo-clock time of publish (FR-023). */
+  publishedAt?: DateTime;
 }
 
 export type StoredRequestStatus = 'pending' | 'approved' | 'declined';

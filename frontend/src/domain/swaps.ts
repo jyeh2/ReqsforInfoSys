@@ -30,10 +30,15 @@ function isActive(r: SwapRequest): boolean {
   return r.status === 'pending' || r.status === 'approved';
 }
 
-/** FR-014: reason recorded on (and shown before) a request submitted at or after the cutoff. */
+/** FR-014 (V2 wording, O-3): reason recorded on a request submitted at or after the cutoff. */
 export function lateReason(state: AppState): string {
   const { cutoff } = computeCutoff(state.schedule);
-  return `Received after the cutoff (${formatDateTime(cutoff)}, provisional); the list is locked for packing.`;
+  return `Received after the swap cutoff (${formatDateTime(cutoff)}).`;
+}
+
+/** V2 FR-024 (O-3): shown to members between the cutoff and packing start. */
+export function closedMessage(state: AppState): string {
+  return `Swap requests closed — the farm is finishing decisions on earlier requests; the packing list locks at ${formatDateTime(state.schedule.packingStart)}.`;
 }
 
 /**
@@ -99,4 +104,10 @@ export function declineRequestsForRemovedItems(state: AppState, clock: DateTime)
       ? { ...r, status: 'declined', reason: 'Item no longer in box', decidedAt: clock }
       : r,
   );
+}
+
+/** V2 FR-023 (Clarification Q3): box first published at/after the cutoff → no swaps this week. */
+export function swapsUnavailableThisWeek(state: AppState): boolean {
+  const { publishedAt } = state.plan;
+  return !!publishedAt && publishedAt >= computeCutoff(state.schedule).cutoff;
 }

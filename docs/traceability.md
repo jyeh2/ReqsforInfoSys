@@ -108,3 +108,23 @@ Ranked by stakeholder impact. **The team decides** which ones go into the V2 spe
    pre-packing warning for pending requests and boxes under the share value.
 4. **O-4: substitute quantities.** Needs Lucia's input before it can be specified.
 5. **O-7 to O-10: implementation fixes.** No spec change needed, except deciding O-10.
+
+## 5. V2 re-evaluation
+
+**Evaluated build**: V2 (`v2` tag) at https://jyeh2.github.io/ReqsforInfoSys/v2/. Spec:
+[`specs/002-csa-box-swaps-v2/spec.md`](../specs/002-csa-box-swaps-v2/spec.md). Method: the V2
+[`quickstart.md`](../specs/002-csa-box-swaps-v2/quickstart.md) walkthrough on the built site, plus 33 unit
+tests. Only rows whose status changed are listed; all other rows in §1 are unchanged.
+
+| Requirement | Interview evidence | Goal | Code / Implementation (V2) | V1 status → V2 status |
+|---|---|---|---|---|
+| **FR-006 / FR-008** Estimate changes marked; confirmed-vs-estimate summary; units | T2/Lucia:35, T2/Lucia:40, T1/Raj:21, T3/Raj:96 | SG-6, SG-7 | `domain/memberBox.ts` `estimateChanges`, `confirmedVsEstimate`, `laterChanges`, `formatQty`; `MemberView.tsx` | Partially → **Fully satisfied** (O-1, O-8, O-10 resolved) |
+| **FR-009** Cutoff by D-2 (Wed 20:00); Proposals A, B and C shown with sources | T3/Hank-b:65, T3/Raj:98, T3/Lucia:41 | SG-16 | `domain/schedule.ts` `computeCutoff`; `CutoffNotice.tsx` | Partially → **Fully satisfied (provisional; stakeholder confirmation still open)** (O-2) |
+| **FR-013** Status message matches current status | T3/Raj:104 | SG-12 | `MemberView.tsx` (last request + `effectiveStatus`) | Partially → **Partially satisfied** (O-9 fixed; O-5 decline reasons deferred) |
+| **FR-014** Late requests: "Received after the swap cutoff" | T3/Hank-b:65 | SG-17, SG-9 | `domain/swaps.ts` `lateReason` | Partially → **Fully satisfied** (O-3, O-7 resolved) |
+| **FR-023** (new) Draft warning; "not available this week" | T3/Lucia:41, T3/Raj:98 | SG-16, SG-6 | `PlannerView.tsx`; `domain/schedule.ts` `timeUntil`; `domain/swaps.ts` `swapsUnavailableThisWeek` | — → **Fully satisfied** |
+| **FR-024** (new) Requests closed vs list locked | T3/Lucia:81 | SG-17, SG-12 | `domain/swaps.ts` `closedMessage`; `MemberView.tsx` | — → **Fully satisfied** |
+| FR-010, FR-012, FR-017 | (see §1) | | unchanged | Partially (O-4, O-5, O-6, O-12 deferred) |
+
+**Observation status after V2**: resolved O-1, O-2 (provisional), O-3, O-7, O-8, O-9, O-10. Deferred,
+still recorded: O-4, O-5, O-6, O-11, O-12.

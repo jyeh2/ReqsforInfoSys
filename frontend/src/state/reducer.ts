@@ -34,7 +34,16 @@ export function reducer(state: AppState, action: Action): AppState {
 
     case 'publish':
       if (!canPublish(state.plan, state.items, state.members.length).ok) return state;
-      return { ...state, plan: { ...state.plan, status: 'provisional' } };
+      // V2 FR-008/FR-023: snapshot the first published estimate and the publish time.
+      return {
+        ...state,
+        plan: {
+          ...state.plan,
+          status: 'provisional',
+          publishedLines: state.plan.lines.map((l) => ({ ...l })),
+          publishedAt: state.clock,
+        },
+      };
 
     case 'confirm':
       if (state.plan.status !== 'provisional') return state;
