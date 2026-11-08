@@ -1,4 +1,4 @@
-# Specification Quality Checklist: CSA Weekly Box Planning and Member Swaps (V1)
+# Specification Quality Checklist: CSA Weekly Box Planning and Member Swaps (V2)
 
 **Purpose**: Validate specification completeness and quality before proceeding to planning
 **Created**: 2026-11-08

@@ -27,12 +27,21 @@ marked **[V2]** and cites the V1 observation (O-x) that motivated it.
 | "Requests closed" (cutoff) separated from "list locked" (packing start) in the rules and the wording members see. | O-3 | FR-014, FR-017, FR-024 (new) |
 | Changes to the provisional estimate are marked for members, not only changes after confirmation. | O-1 | FR-008, US2 |
 | Change markers show quantity and unit of both items. | O-8 | FR-008 |
+| A swap approved before confirmation is marked as the member's approved swap (decided in Clarifications). | O-10 | FR-008 |
 | Status messages always reflect the current status. | O-9 | FR-013 |
 | No internal requirement IDs in user-facing text. | O-7 | FR-022 |
 
 Deferred to a later version (recorded, not built): decline reasons and alternatives (O-5), pre-packing
 warning for pending requests (O-6), swap value impact (O-12), substitute quantity rule (O-4), standing
 preferences (O-11).
+
+## Clarifications
+
+### Session 2026-11-08
+
+- Q: After confirmation, should members also see how the confirmed box differs from the first published estimate, or only changes made after confirmation? → A: Show a separate "Different from the first estimate" summary in the confirmed view, plus markers for changes made after confirmation.
+- Q: Should a swap approved before confirmation be marked as a change in the confirmed view (O-10)? → A: Yes. A member's approved swap is always marked "Your approved swap", whenever it was approved.
+- Q: What happens if the box is still a Draft when the cutoff passes? → A: The cutoff is not moved. Lucia sees a warning, and members are told swap requests were not available this week.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -94,6 +103,10 @@ then after a change. Delivers reliable member-facing information on its own.
 5. **[V2]** **Given** the box is "Provisional estimate" and Lucia changes an item's quantity, adds an
    item or removes one, **When** a member opens their box, **Then** each change since the estimate was
    first published is marked (e.g., "Changed since first estimate: was 2 lb Apples"). (FR-008)
+6. **[V2]** **Given** the estimate changed before Lucia confirmed it, **When** a member opens the
+   confirmed box, **Then** a "Different from the first estimate" summary lists each difference. (FR-008)
+7. **[V2]** **Given** a member's swap was approved while the box was still provisional, **When** they
+   open the confirmed box, **Then** the substitute is marked "Your approved swap". (FR-008)
 
 ---
 
@@ -182,6 +195,8 @@ member's list includes the substitute; check all items and mark the box done.
   marked. Pending swap requests on an item that was removed become "Declined — item no longer in
   box". (FR-008, FR-018)
 - **Request exactly at the cutoff time**: treated as late. (FR-014)
+- **[V2] Box still a Draft at the cutoff**: the cutoff is not moved; Lucia keeps seeing the warning,
+  and members are told swap requests were not available this week. (FR-023)
 - **No substitutes defined**: the member sees that no swaps are offered this week. (FR-010)
 
 ## Requirements *(mandatory)*
@@ -212,10 +227,10 @@ member's list includes the substitute; check all items and mark the box done.
   the member's approved swap) MUST be marked in the member view, showing the new item and the item
   it replaced, **[V2]** each with quantity and unit (O-8). **[V2]** While the box is provisional, any
   change Lucia makes after first publishing it MUST also be marked, relative to the estimate as first
-  published (O-1). After confirmation, [NEEDS CLARIFICATION: should members also see how the confirmed
-  box differs from the first published estimate, or only changes made after confirmation?]
-  [NEEDS CLARIFICATION: should a swap approved before confirmation be marked as a change in the
-  confirmed view (V1 marks it; O-10)?]
+  published (O-1). After confirmation, the member view MUST show (a) a separate summary titled
+  "Different from the first estimate" listing every difference between the first published estimate
+  and the confirmed box, and (b) markers for changes made after confirmation. A member's approved
+  swap MUST always be marked "Your approved swap", whenever it was approved (O-10).
 
 **Swaps — SG-8**
 
@@ -237,7 +252,9 @@ member's list includes the substitute; check all items and mark the box done.
   MUST leave the box and packing list unchanged. Before submitting, the member MUST see that swap
   requests are closed.
 - **FR-023** [SG-16, SG-6] **[V2]**: While the box is a Draft, the planner MUST warn Lucia that members
-  cannot request swaps until the box is published, showing the time remaining until the cutoff (O-2).
+  cannot request swaps until the box is published, showing the time remaining until the cutoff (or that
+  it has passed) (O-2). If the box is first published after the cutoff, the member view MUST say swap
+  requests were not available this week.
 - **FR-024** [SG-17, SG-12] **[V2]**: Between the cutoff and packing start, the member view MUST say that
   swap requests are closed, that the farm may still decide earlier requests, and when the packing list
   locks (O-3).
