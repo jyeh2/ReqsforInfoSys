@@ -2,7 +2,9 @@
 
 **Status:** V2, revised in Step 5 after evaluating Prototype V1 (see §7 and [`../traceability.md`](../traceability.md)). The V1 version of this file is preserved at the `v1` tag.
 
-**Files:** `goal_model_sprint.py` generates the editable Mermaid source `goal_model_sprint.mmd` and a Mermaid Live Editor link. Export the latter as `goal_model_sprint.svg`.
+**Files:** `goal_model_sprint.py` generates the editable Mermaid source `goal_model_sprint.mmd` and a Mermaid Live Editor link. Diagrams: [`goal_model_sprint.svg`](goal_model_sprint.svg) (V2, current) and [`goal_model_sprint_v1.svg`](goal_model_sprint_v1.svg) (V1, for comparison).
+
+![V2 sprint goal model](goal_model_sprint.svg)
 
 ## 1. System boundary and selected goals
 
