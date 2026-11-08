@@ -11,8 +11,9 @@ member swap requests, and packing, derived from the group's merged stakeholder g
   goal(s) it implements (e.g., `[SG-6]`).
 - Every SG goal MUST map to its source A2 member goal IDs via the crosswalk in
   `docs/goalmodel/goal-model.md`.
-- Every SG leaf goal MUST cite stakeholder interview evidence (transcript + location) or be
-  explicitly labeled an analyst assumption.
+- Every requirement in the Requirements Traceability Matrix (`docs/traceability.md`) MUST cite
+  stakeholder interview evidence (transcript + location), reached via the SG goal and its A2 source
+  goals, or be explicitly labeled an analyst assumption.
 - Every acceptance scenario MUST reference the `FR-###` it verifies.
 
 **Rationale**: The Requirements Traceability Matrix (interview → goal → requirement → code) must be
@@ -110,4 +111,4 @@ complexity; simplicity keeps both versions deployable and comparable.
   added or materially expanded principles/sections, PATCH for clarifications.
 - Reviews of specs, plans, and tasks MUST verify compliance with Principles I–VII.
 
-**Version**: 1.0.0 | **Ratified**: 2026-11-08 | **Last Amended**: 2026-11-08
+**Version**: 1.0.1 | **Ratified**: 2026-11-08 | **Last Amended**: 2026-11-08

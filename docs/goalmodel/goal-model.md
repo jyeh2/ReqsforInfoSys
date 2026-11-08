@@ -90,22 +90,3 @@ If stakeholders give a different packing time, update this table and spec assump
 | CSA member (e.g., Raj) | SG-9 (submitting a request) |
 | Packing crew | SG-15 |
 | CSA prototype (software) | SG-6, SG-7, SG-10, SG-12, SG-14, SG-16, SG-17 |
-
-## 7. Interview evidence per leaf goal (to complete)
-
-Needed for the Step 4 traceability matrix. Leaves without interview support stay labeled as analyst assumptions.
-
-| SG leaf | Interview evidence (transcript, location) |
-| --- | --- |
-| SG-3 Review available produce | TODO |
-| SG-4 Contents meet share value | TODO |
-| SG-6 Early estimate labeled provisional | TODO |
-| SG-7 Confirmed contents and changes | TODO |
-| SG-9 Request before cutoff | TODO |
-| SG-10 Farm-approved substitutes | TODO |
-| SG-11 Lucia approves or declines | TODO |
-| SG-12 Status visible to both | TODO |
-| SG-14 Approved swap updates packing list | TODO |
-| SG-15 Packers check current list | TODO |
-| SG-16 Display provisional cutoff | Analyst assumption (added in Step 2) |
-| SG-17 Late requests declined with reason | Analyst assumption (added in Step 2) |
