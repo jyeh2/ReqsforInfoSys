@@ -30,23 +30,25 @@ function isActive(r: SwapRequest): boolean {
   return r.status === 'pending' || r.status === 'approved';
 }
 
-/** FR-011, FR-014: may this member submit this request now? */
+/** FR-014: reason recorded on (and shown before) a request submitted at or after the cutoff. */
+export function lateReason(state: AppState): string {
+  const { cutoff } = computeCutoff(state.schedule);
+  return `Received after the cutoff (${formatDateTime(cutoff)}, provisional); the list is locked for packing.`;
+}
+
+/**
+ * FR-011, FR-014: may this member submit this request now?
+ * Lateness is checked last: `late: true` means the request is otherwise valid and is recorded
+ * as Declined with `lateReason` instead of being accepted.
+ */
 export function validateRequest(
   state: AppState,
   memberId: string,
   originalItemId: string,
   substituteItemId: string,
   clock: DateTime,
-): Check {
+): Check & { late?: boolean } {
   if (state.plan.status === 'draft') return { ok: false, reason: "This week's box has not been published yet." };
-  const phase = phaseAt(clock, state.schedule);
-  if (phase !== 'open') {
-    const { cutoff } = computeCutoff(state.schedule);
-    return {
-      ok: false,
-      reason: `Swap requests closed at ${formatDateTime(cutoff)} (provisional cutoff). The box list is locked for packing, so your box stays as shown.`,
-    };
-  }
   if (planQtyOf(state, originalItemId) === 0) return { ok: false, reason: 'That item is not in your box.' };
   if (state.requests.some((r) => r.memberId === memberId && r.originalItemId === originalItemId && isActive(r))) {
     return { ok: false, reason: 'You already have an active swap request for this item.' };
@@ -54,6 +56,7 @@ export function validateRequest(
   if (!substituteOptions(state, originalItemId).some((i) => i.id === substituteItemId)) {
     return { ok: false, reason: 'That substitute is not available.' };
   }
+  if (phaseAt(clock, state.schedule) !== 'open') return { ok: false, late: true, reason: lateReason(state) };
   return { ok: true };
 }
 

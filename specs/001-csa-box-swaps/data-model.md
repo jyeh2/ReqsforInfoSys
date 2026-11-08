@@ -70,6 +70,7 @@ BoxPlan:   draft --publish [valid]--> provisional --confirm--> confirmed
            (edits allowed in draft/provisional; in confirmed only while phase = open)
 
 SwapRequest: (submit, phase=open, no active request for item) --> pending
+             (submit, phase!=open) --> declined ("Received after the cutoff…")  [FR-014]
              pending --approve [phase != packing, remaining ≥ qty]--> approved
              pending --decline [phase != packing]--> declined
              pending/approved --original removed by edit--> declined ("item no longer in box")

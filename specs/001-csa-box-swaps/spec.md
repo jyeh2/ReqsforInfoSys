@@ -4,7 +4,7 @@
 
 **Created**: 2026-11-08
 
-**Status**: Draft (V1)
+**Status**: V1 (late-request rule aligned with goal model before V1 freeze)
 
 **Input**: User description: "CSA weekly box planning and member swap prototype (V1), implementing the
 sprint goal model in docs/goalmodel/goal-model.md (SG-1 subtree). Lucia plans boxes from mock harvest
@@ -105,8 +105,9 @@ decline; switch back and see the status. Move the demo clock past the cutoff and
 5. **Given** a pending request, **When** Lucia declines it, **Then** the status becomes "Declined"
    for both, and the member's box is unchanged. (FR-012, FR-013)
 6. **Given** the current time is at or after the cutoff, **When** a member tries to request a swap,
-   **Then** the request is not accepted, the member sees why (the cutoff time and that the list is
-   locked for packing), and their box is unchanged. (FR-014)
+   **Then** the member is warned the cutoff has passed; if they submit anyway, the request is
+   recorded as "Declined" with the reason (cutoff time, list locked for packing), Lucia sees it in
+   her queue, and the box is unchanged. (FR-014)
 7. **Given** a request would need more of a substitute than remains in the harvest, **When**
    Lucia reviews it, **Then** she sees that approving it is not possible and can only decline.
    (FR-012)
@@ -195,9 +196,12 @@ member's list includes the substitute; check all items and mark the box done.
   be blocked when the substitute's remaining quantity is insufficient.
 - **FR-013** [SG-12]: Each request's status (Pending, Approved, Declined, Not reviewed before
   packing) MUST be visible to the requesting member and to Lucia.
-- **FR-014** [SG-17, SG-9]: At or after the cutoff, the system MUST NOT accept new swap requests;
-  it MUST tell the member the cutoff time and that the list is locked for packing, and MUST leave
-  the box unchanged.
+- **FR-014** [SG-17, SG-9]: A swap request submitted at or after the cutoff MUST be recorded and
+  immediately set to "Declined" with the reason "Received after the cutoff (<cutoff time>); the
+  list is locked for packing". It MUST be visible to the member and to Lucia like any other request
+  (FR-013) and MUST leave the box and packing list unchanged. Before submitting, the member MUST see
+  that the cutoff has passed. *(Aligned with goal model D-1/SG-17: "requests received afterward are
+  declined with a reason".)*
 
 **Packing — SG-13**
 
@@ -253,8 +257,10 @@ These are preserved from the goal model; they are not removed from scope.
 - **R-2 — Swap workflow steps (overlap)**: request, decision, status and packing update are
   separate requirements (FR-011, FR-012, FR-013, FR-015) with different responsible agents.
 - **R-4 — Approved substitutes only (dependency)**: no free-text requests in V1 (FR-010).
-- **R-6 — Late requests vs packing (conflict)**: late requests are explained and never alter a
-  locked list (FR-014, FR-017).
+- **R-6 — Late requests vs packing (conflict)**: late requests are declined with a reason and
+  never alter a locked list (FR-014, FR-017).
+- **Dependencies**: SG-2 → SG-5 (plan before preview); SG-10 → SG-11 (approved choices before
+  approval); SG-11 → SG-14 → SG-15 (approved swaps reach the checked packing list).
 
 ## Out of Scope
 
@@ -274,7 +280,7 @@ real authentication; multiple weeks or history.
   seconds.
 - **SC-004**: 100% of approved swaps appear on that member's packing list; 0 declined, late or
   unreviewed requests appear on any packing list.
-- **SC-005**: 0 swap requests are accepted at or after the displayed cutoff.
+- **SC-005**: 100% of swap requests submitted at or after the displayed cutoff are recorded as Declined with a reason; 0 change a box.
 - **SC-006**: Every functional requirement FR-001–FR-018 can be traced to an SG goal and
   demonstrated through at least one acceptance scenario.
 

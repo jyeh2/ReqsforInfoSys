@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { memberBox, memberChanges } from '../domain/memberBox';
 import { itemById } from '../domain/plan';
 import { formatDateTime, phaseAt } from '../domain/schedule';
-import { effectiveStatus, STATUS_LABEL, substituteOptions, validateRequest } from '../domain/swaps';
+import { effectiveStatus, lateReason, STATUS_LABEL, substituteOptions, validateRequest } from '../domain/swaps';
 import { useStore } from '../state/store';
 import { CutoffNotice } from './CutoffNotice';
 
@@ -36,12 +36,12 @@ export function MemberView({ memberId }: { memberId: string }) {
 
   function submit() {
     const check = validateRequest(state, memberId, original, substitute, state.clock);
-    if (!check.ok) {
+    if (!check.ok && !check.late) {
       setMessage(check.reason ?? 'Request not accepted.');
       return;
     }
     dispatch({ type: 'submitRequest', memberId, originalItemId: original, substituteItemId: substitute });
-    setMessage('Request submitted — status: Pending.');
+    setMessage(check.late ? `Request declined — ${check.reason} Your box stays as shown.` : 'Request submitted — status: Pending.');
     setOriginal('');
     setSubstitute('');
   }
@@ -84,9 +84,11 @@ export function MemberView({ memberId }: { memberId: string }) {
 
       <h3>Request a swap</h3>
       <CutoffNotice />
-      {phase !== 'open' ? (
-        <p className="warn">{validateRequest(state, memberId, '', '', state.clock).reason}</p>
-      ) : (
+      {phase !== 'open' && (
+        <p className="warn">
+          The swap cutoff has passed. Requests submitted now will be declined automatically (FR-014): {lateReason(state)}
+        </p>
+      )}
         <div className="swap-form">
           <label>
             Replace
@@ -104,7 +106,6 @@ export function MemberView({ memberId }: { memberId: string }) {
           </label>
           <button className="primary" disabled={!original || !substitute} onClick={submit}>Submit request</button>
         </div>
-      )}
       {message && <p className="notice">{message}</p>}
 
       <h3>My requests</h3>

@@ -24,8 +24,9 @@
 - Provisional: contents + persistent "Provisional — may change" label.
 - Confirmed: "Confirmed at …"; changed lines marked "Changed: X → Y (swap|farm edit)".
 - Cutoff notice (provisional label).
-- Swap form (open phase only): pick item in box, pick approved substitute; submit.
-- Late attempt: explanation with cutoff time and "list locked for packing"; box unchanged.
+- Swap form (once published): pick item in box, pick approved substitute; submit.
+- After cutoff: warning that the cutoff has passed; form still available; a submission is recorded as
+  Declined with reason (cutoff time, list locked for packing); box unchanged.
 - My requests: list with status.
 
 ## Packer — Packing (FR-015–FR-017)

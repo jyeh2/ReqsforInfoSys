@@ -14,11 +14,16 @@ describe('swap rules (FR-010–FR-014, FR-017)', () => {
     const s = confirmedState();
     expect(validateRequest(s, 'raj', 'potatoes', 'sweetpotatoes', '2026-11-10T12:00').ok).toBe(true);
   });
-  it('rejects requests at or after the cutoff', () => {
+  it('marks otherwise-valid requests at or after the cutoff as late (FR-014)', () => {
     const s = confirmedState();
     const r = validateRequest(s, 'raj', 'potatoes', 'sweetpotatoes', '2026-11-11T08:00');
     expect(r.ok).toBe(false);
-    expect(r.reason).toMatch(/locked for packing/);
+    expect(r.late).toBe(true);
+    expect(r.reason).toMatch(/Received after the cutoff.*locked for packing/);
+  });
+  it('does not mark invalid late requests as late', () => {
+    const s = confirmedState();
+    expect(validateRequest(s, 'raj', 'beets', 'sweetpotatoes', '2026-11-11T09:00').late).toBeUndefined();
   });
   it('rejects a second active request for the same item', () => {
     const s = confirmedState();

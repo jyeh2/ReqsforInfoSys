@@ -67,3 +67,45 @@ The wider A2 models disagree about whether CSA or restaurant promises take prece
 - The red **Open** note makes the remaining schedule/approval question visible.
 
 This document explains the model. **The assignment-required learning log** is still `learning-log.md`, which includes a concise summary of our Step 1 and Step 2 reasoning.
+
+## 5. V1 schedule assumption (needed to compute D-1)
+
+D-1 cannot produce a concrete deadline without a packing time, so V1 assumes (**analyst assumption A-1, not stakeholder-confirmed**):
+
+| Input | V1 value |
+| --- | --- |
+| Pickup | Friday |
+| Packing starts | Thursday 08:00 |
+| Proposal A (24 h before packing) | Wednesday 08:00 |
+| Proposal B (Wednesday evening) | Wednesday 20:00 |
+| **D-1 cutoff (earlier)** | **Wednesday 08:00**, shown in the app as provisional |
+
+If stakeholders give a different packing time, update this table and spec assumption A-1 first.
+
+## 6. Responsibilities (agents)
+
+| Agent | Responsible for |
+| --- | --- |
+| Lucia (farm planner) | SG-3, SG-4, SG-11 |
+| CSA member (e.g., Raj) | SG-9 (submitting a request) |
+| Packing crew | SG-15 |
+| CSA prototype (software) | SG-6, SG-7, SG-10, SG-12, SG-14, SG-16, SG-17 |
+
+## 7. Interview evidence per leaf goal (to complete)
+
+Needed for the Step 4 traceability matrix. Leaves without interview support stay labeled as analyst assumptions.
+
+| SG leaf | Interview evidence (transcript, location) |
+| --- | --- |
+| SG-3 Review available produce | TODO |
+| SG-4 Contents meet share value | TODO |
+| SG-6 Early estimate labeled provisional | TODO |
+| SG-7 Confirmed contents and changes | TODO |
+| SG-9 Request before cutoff | TODO |
+| SG-10 Farm-approved substitutes | TODO |
+| SG-11 Lucia approves or declines | TODO |
+| SG-12 Status visible to both | TODO |
+| SG-14 Approved swap updates packing list | TODO |
+| SG-15 Packers check current list | TODO |
+| SG-16 Display provisional cutoff | Analyst assumption (added in Step 2) |
+| SG-17 Late requests declined with reason | Analyst assumption (added in Step 2) |

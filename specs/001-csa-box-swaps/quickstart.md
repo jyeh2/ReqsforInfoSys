@@ -28,7 +28,8 @@ Start with **Reset demo**. Clock: Mon 09:00.
 6. **Lucia / Requests**: approve. **Raj**: status Approved, box marks change.
    **Packer**: Raj's list shows Sweet potatoes (swap). → US3-4, US2-4, US4-1
 7. **Member (Mei)**: request and have Lucia decline → box unchanged. → US3-5
-8. Clock **Wed 08:00**: member swap form replaced by late explanation. → US3-6
+8. Clock **Wed 08:00**: member sees "cutoff has passed"; submitting anyway records the request as
+   Declined with the cutoff reason, visible to Lucia; box unchanged. → US3-6
 9. Submit a request before cutoff, leave it pending, clock **Thu 08:00** → status "Not reviewed
    before packing", packing list unchanged. → US4-3, edge case
 10. **Packer**: check all lines → "Mark box checked" enabled → Checked. → US4-2

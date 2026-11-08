@@ -50,16 +50,16 @@ export function reducer(state: AppState, action: Action): AppState {
 
     case 'submitRequest': {
       const { memberId, originalItemId, substituteItemId } = action;
-      if (!validateRequest(state, memberId, originalItemId, substituteItemId, state.clock).ok) return state;
+      const check = validateRequest(state, memberId, originalItemId, substituteItemId, state.clock);
+      if (!check.ok && !check.late) return state;
       const qty = state.plan.lines.find((l) => l.itemId === originalItemId)!.qty;
       const id = `req-${state.requests.length + 1}-${memberId}`;
-      return {
-        ...state,
-        requests: [
-          ...state.requests,
-          { id, memberId, originalItemId, substituteItemId, qty, submittedAt: state.clock, status: 'pending' },
-        ],
-      };
+      const base = { id, memberId, originalItemId, substituteItemId, qty, submittedAt: state.clock };
+      // FR-014: late requests are recorded as Declined with a reason; the box is unchanged.
+      const request = check.late
+        ? { ...base, status: 'declined' as const, reason: check.reason, decidedAt: state.clock }
+        : { ...base, status: 'pending' as const };
+      return { ...state, requests: [...state.requests, request] };
     }
 
     case 'approve':

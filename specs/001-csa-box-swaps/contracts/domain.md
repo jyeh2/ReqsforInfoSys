@@ -11,7 +11,7 @@ All functions are pure: same inputs → same outputs, no I/O. Each is unit-teste
 | `canPublish(plan, items, memberCount)` | plan.ts | `{ok, reasons[]}` | FR-004 |
 | `canEditPlan(plan, phase)` | plan.ts | `{ok, reason?}` | FR-018 |
 | `substituteOptions(state, memberId, originalItemId)` | swaps.ts | HarvestItem[] with remaining ≥ needed qty | FR-010 |
-| `validateRequest(state, memberId, originalItemId, substituteId, clock)` | swaps.ts | `{ok, reason?}` (late, duplicate, unavailable, not published) | FR-011, FR-014 |
+| `validateRequest(state, memberId, originalItemId, substituteId, clock)` | swaps.ts | `{ok, reason?, late?}` (not published, not in box, duplicate, unavailable; `late` checked last so a late but otherwise valid request is recorded as Declined) | FR-011, FR-014 |
 | `canApprove(state, requestId, clock)` | swaps.ts | `{ok, reason?}` | FR-012 |
 | `effectiveStatus(request, clock, schedule)` | swaps.ts | status incl. `not_reviewed` | FR-013, FR-017 |
 | `memberBox(state, memberId)` | memberBox.ts | lines with swaps applied, swap flags | FR-007, FR-015 |

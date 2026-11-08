@@ -25,12 +25,15 @@ describe('quickstart walkthrough', () => {
     expect(packingList(s, 'raj')!.some((l) => l.itemId === 'sweetpotatoes')).toBe(true);
     expect(packingList(s, 'mei')!.some((l) => l.itemId === 'kale')).toBe(true);
 
-    // late request rejected (US3-6)
+    // late request recorded as Declined with a reason; box unchanged (US3-6, FR-014)
     const late = run([
       { type: 'setClock', clock: '2026-11-11T08:00' },
       { type: 'submitRequest', memberId: 'sam', originalItemId: 'kale', substituteItemId: 'beets' },
     ], s);
-    expect(late.requests).toHaveLength(2);
+    expect(late.requests).toHaveLength(3);
+    expect(late.requests[2]).toMatchObject({ status: 'declined', memberId: 'sam' });
+    expect(late.requests[2].reason).toMatch(/Received after the cutoff/);
+    expect(packingList(late, 'sam')!.some((l) => l.itemId === 'kale')).toBe(true);
 
     // pending at packing start → not reviewed, list unchanged (edge case)
     s = run([{ type: 'submitRequest', memberId: 'dana', originalItemId: 'apples', substituteItemId: 'beets' }], s);
