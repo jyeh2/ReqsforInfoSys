@@ -25,7 +25,7 @@ existing tests). Paths are relative to `frontend/src/` unless stated.
 
 **Independent test**: while Draft the planner warns about swaps and shows time to the Wed 20:00 cutoff.
 
-- [ ] T006 [US1] Add Draft warning to components/PlannerView.tsx: "Members can't request swaps until you publish" + time remaining until cutoff, or "the swap cutoff has passed" (FR-023, V2-8)
+- [ ] T006 [US1] Add Draft warning to components/PlannerView.tsx: "Members can't request swaps until you publish" + time remaining until cutoff formatted as days and hours (e.g., "2 d 11 h"), or "the swap cutoff has passed" (FR-023, V2-8)
 - [ ] T007 [P] [US1] Update components/CutoffNotice.tsx detailed list: D-2 cutoff; Proposal A "24 h before packing — no interview evidence"; Proposal B "Wednesday evening — Hank"; Proposal C "48 h before pickup — Raj, information deadline"; provisional label (FR-009)
 
 ## Phase 4: User Story 2 — Member sees dependable info (P1)
@@ -42,7 +42,7 @@ existing tests). Paths are relative to `frontend/src/` unless stated.
 
 - [ ] T011 [US3] In domain/swaps.ts change `lateReason` to "Received after the swap cutoff (<time>)." and add `closedMessage(state)` = "Swap requests closed — the farm is finishing decisions on earlier requests; the packing list locks at <packingStart>." (FR-014, FR-024, V2-7)
 - [ ] T012 [P] [US3] Update domain/swaps.test.ts and state/reducer.test.ts for the new cutoff (late at/after Wed 20:00) and wording; add "published after cutoff" case
-- [ ] T013 [US3] In state/reducer.ts and components/MemberView.tsx make the submit message reference the submitted request id and render its current `effectiveStatus` (FR-013, V2-6)
+- [ ] T013 [US3] In state/reducer.ts and components/MemberView.tsx make the submit message track the member's most recently submitted request (last request for that member in state) and render its current `effectiveStatus` (FR-013, V2-6)
 - [ ] T014 [US3] In components/MemberView.tsx show `closedMessage` between cutoff and packing, packing-locked text during packing, and "Swap requests were not available this week." when `publishedAt >= cutoff`; remove the "(FR-014)" text (FR-022, FR-023, FR-024)
 
 ## Phase 6: User Story 4 — Packing (P2)

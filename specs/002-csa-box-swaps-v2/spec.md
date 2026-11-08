@@ -23,7 +23,7 @@ marked **[V2]** and cites the V1 observation (O-x) that motivated it.
 | Change | V1 observation | Requirements affected |
 |---|---|---|
 | Cutoff rule revised from D-1 (earlier of A/B → Wed 08:00) to **D-2** (Wednesday 20:00 for a Friday pickup), based on interview evidence. Proposal A kept in C-1 but marked as having no interview support. | O-2 | FR-009, C-1, D-2, A-1 |
-| The box must be published before the cutoff; Lucia is warned while it is still a draft. | O-2 | FR-023 (new) |
+| Lucia is warned to publish before the cutoff while the box is still a draft (warning only; see Clarifications). | O-2 | FR-023 (new) |
 | "Requests closed" (cutoff) separated from "list locked" (packing start) in the rules and the wording members see. | O-3 | FR-014, FR-017, FR-024 (new) |
 | Changes to the provisional estimate are marked for members, not only changes after confirmation. | O-1 | FR-008, US2 |
 | Change markers show quantity and unit of both items. | O-8 | FR-008 |
@@ -289,13 +289,14 @@ member's list includes the substitute; check all items and mark the box done.
 - **Harvest item**: produce available this week — name, unit (e.g., bunch, lb), available
   quantity, unit value, whether it is an approved substitute.
 - **Box plan**: this week's standard box — list of (item, per-box quantity), status (Draft,
-  Provisional estimate, Confirmed), confirmation time, promised share value.
+  Provisional estimate, Confirmed), confirmation time, promised share value, **[V2]** the contents and
+  time of the first publish (baseline for estimate changes, FR-008, FR-023).
 - **Member**: a CSA subscriber with one standard share — name.
 - **Swap request**: member, original item, substitute item, submission time, status, decision
   time.
 - **Packing list**: derived per member from the box plan plus that member's approved swaps; has a
   checked state per line and a box-level "Checked" state.
-- **Week schedule**: pickup day, packing start time, and the computed cutoff (D-1).
+- **Week schedule**: pickup day, packing start time, and the computed cutoff (D-2).
 - **Change record**: what changed after confirmation (old item → new item, reason: edit or swap).
 
 ## Conflicts & Decisions
@@ -312,9 +313,10 @@ These are preserved from the goal model; they are not removed from scope.
 - **D-1 — V1 rule (superseded)**: earlier of A and B → Wednesday 08:00. Evaluation showed it rested on
   a proposal with no stakeholder evidence and could close swaps before the contents were sent (O-2).
 - **[V2] D-2 — Provisional V2 rule**: the cutoff is **Wednesday 20:00 for a Friday pickup** (Proposal
-  B, the only farm-side rule stated by a stakeholder). It satisfies Raj's 48-hour expectation for a
-  morning pickup and leaves Thursday-morning packing unaffected (SG-13). Proposal A and C stay in the
-  model. Displayed as provisional (FR-009).
+  B, the only farm-side rule stated by a stakeholder). It leaves Thursday-morning packing unaffected
+  (SG-13). It does **not** by itself meet Raj's expectation (C) to know the contents 48 hours before
+  pickup (about Wednesday 09:00); that depends on Lucia publishing by then, which FR-023 encourages but
+  does not enforce. Proposals A and C stay in the model. Displayed as provisional (FR-009).
   **Status: NEEDS STAKEHOLDER CLARIFICATION** — Lucia and Hank to confirm D-2 and the packing start.
 - **R-1 — Estimate vs confirmed (overlap)**: kept as separate states (FR-006, FR-007) because
   merging them hides the difference members rely on.

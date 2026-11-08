@@ -60,7 +60,7 @@ These are not necessarily contradictory without knowing the packing schedule. Th
 - **Proposal C (new) from Raj:** he wants to know "at least 48 hours before pickup" (T3/Raj:98) and wants swaps kept open "until packing is finalized" (T1/Raj:21).
 - **Lucia's timeline:** she sends the contents "by Wednesday" so members can request swaps before packing (T3/Lucia:41). D-1's Wednesday 08:00 could therefore close swaps before members had seen the box.
 
-**D-2 — provisional V2 rule:** the cutoff is **Wednesday 20:00 for a Friday pickup**, and the box must be published before the cutoff. This is the only farm-side deadline a stakeholder actually stated. It meets Raj's 48-hour expectation for a morning pickup and leaves Thursday packing intact (SG-13). Proposals A and C stay in the model; D-1 stays as a superseded decision. **Still requires confirmation from Lucia and Hank.**
+**D-2 — provisional V2 rule:** the cutoff is **Wednesday 20:00 for a Friday pickup**, and Lucia is warned to publish the box before the cutoff. This is the only farm-side deadline a stakeholder actually stated, and it leaves Thursday packing intact (SG-13). It does **not** by itself meet Raj's wish (Proposal C) to know the contents 48 hours before pickup (about Wednesday 09:00); that depends on Lucia publishing by then. Proposals A and C stay in the model; D-1 stays as a superseded decision. **Still requires confirmation from Lucia and Hank.**
 
 ### Other conflict and scope notes
 
@@ -106,7 +106,7 @@ If stakeholders give a different packing time, update this table and spec assump
 | Change | Why (V1 evaluation) |
 | --- | --- |
 | C-1 now records the source and evidence of each proposal, and adds Proposal C (Raj). | O-2: Proposal A had no interview support; Raj's and Lucia's timelines were not modeled. |
-| D-1 superseded by D-2 (Wednesday 20:00; box published before cutoff). D-1 kept, marked superseded. | O-2 |
+| D-1 superseded by D-2 (Wednesday 20:00; Lucia warned to publish before the cutoff). D-1 kept, marked superseded. | O-2 |
 | SG-17 now separates "requests closed" (cutoff) from "list locked" (packing start). | O-3: V1 told members the list was locked while Lucia could still approve requests. |
 | SG-6 now also covers marking changes to the provisional estimate. | O-1: estimate changes were invisible to members (T2/Lucia:40, T1/Raj:21). |
 

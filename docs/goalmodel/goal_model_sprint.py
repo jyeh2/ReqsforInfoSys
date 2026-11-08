@@ -74,7 +74,7 @@ MERMAID = r'''flowchart TB
         REQ24 -. "potentially different deadlines" .-> REQWED
         REQ48 -. "member flexibility vs packing" .-> REQWED
         OLD["D-1 (V1, superseded): use the EARLIER deadline"]
-        RULE["D-2 (V2): Wednesday 20:00 for Friday pickup; box published before cutoff"]
+        RULE["D-2 (V2): Wednesday 20:00 for Friday pickup; warn Lucia to publish before cutoff"]
         NOTE["Open: Lucia and Hank to confirm D-2 and packing start"]
         REQ24 -.-> OLD
         OLD -. "V1 evaluation O-2" .-> RULE
