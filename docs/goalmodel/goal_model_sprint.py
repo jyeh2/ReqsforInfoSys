@@ -1,95 +1,120 @@
-"""17-626 Assignment 3 — proposed Step 1 sprint goal model.
+"""17-626 Assignment 3: proposed GROUP goal model for the V1 prototype.
 
-Purpose: scoped group model for V1, *pending group agreement*.
-Uses fresh SG- IDs because all three A2 models reused G-1, G-2, etc.
-Plain-English goal names deliberately avoid CamelCase.
+Run with Python 3 (no third-party libraries required):
+    python3 goal_model_sprint.py
 
-Install the course goalmodeling wheel, then run:
-    python goal_model_sprint.py
+Outputs:
+    goal_model_sprint.mmd   -- editable Mermaid source
+    a Mermaid Live Editor link in the terminal, from which SVG can be exported
 
-The model prints a Mermaid Live Editor link. All leaf assignments and
-prototype-specific workflow details are analyst proposals, not transcript quotes.
+IMPORTANT: The V1 scope and cutoff are PROPOSALS, not approved stakeholder
+requirements. The conflicting alternatives remain visible in the diagram.
 
-Source crosswalk (examples, not an assertion that IDs match across models):
-  Your model: SG-2 ~ G-27/G-29; SG-5 ~ G-42/G-56/G-58/G-59;
-              SG-8 ~ G-60/G-62/G-63; SG-13 ~ G-31/G-32/G-33/G-34.
-  Teammate A detailed catalogue: SG-2 ~ G-2; SG-5 ~ G-40/G-41/G-42/G-43;
-              SG-8 ~ G-46/G-47/G-49/G-93/G-94; SG-13 ~ G-11/G-20.
-  Teammate B smaller graph: SG-2 ~ G-13/G-17; SG-8 ~ G-19/G-32;
-              SG-13 ~ G-20/G-24.
-
-Open question: change-request cutoff (no specific time encoded here).
+Group IDs SG-* are new, unique identifiers. Each teammate used different G-*
+IDs in Assignment 2. See docs/goal-model.md for the source crosswalk.
 """
 
-from goalmodeling.schema import (
-    AchieveGoal, MaintainGoal, Refinement, Agent, AgentType,
-    Operation, OperationCategory, PerformanceLink,
-    generate_graph, generate_pako_link,
-)
+from __future__ import annotations
 
-system = Agent("CSA prototype", AgentType.SOFTWARE_AGENT)
-lucia = Agent("Lucia", AgentType.ENVIRONMENT_AGENT)
-member = Agent("CSA member", AgentType.ENVIRONMENT_AGENT)
-packer = Agent("Packing crew", AgentType.ENVIRONMENT_AGENT)
+import base64
+import json
+from pathlib import Path
+import zlib
+
+MERMAID = r'''flowchart TB
+    SG1["SG-1: Plan and pack the correct weekly CSA boxes"]
+
+    SG2["SG-2: Create a feasible weekly box plan"]
+    SG3["SG-3: Review available produce"]
+    SG4["SG-4: Choose contents meeting promised share value"]
+
+    SG5["SG-5: Members see reliable box information"]
+    SG6["SG-6: Label early estimates as provisional"]
+    SG7["SG-7: Show confirmed contents and later changes"]
+
+    SG8["SG-8: Handle swaps within farm limits"]
+    SG9["SG-9: Accept swap requests before displayed cutoff"]
+    SG10["SG-10: Offer farm-approved substitutes"]
+    SG11["SG-11: Lucia approves or declines requests"]
+    SG12["SG-12: Show status to members and Lucia"]
+    SG16["SG-16: Display the week's provisional cutoff rule"]
+    SG17["SG-17: Explain late requests without changing a locked list"]
+
+    SG13["SG-13: Pack the correct box for each member"]
+    SG14["SG-14: Apply approved swaps to the packing list"]
+    SG15["SG-15: Packers check the current list"]
+
+    SG1 --> SG2
+    SG1 --> SG5
+    SG1 --> SG8
+    SG1 --> SG13
+    SG2 --> SG3
+    SG2 --> SG4
+    SG5 --> SG6
+    SG5 --> SG7
+    SG8 --> SG9
+    SG8 --> SG10
+    SG8 --> SG11
+    SG8 --> SG12
+    SG8 --> SG16
+    SG8 --> SG17
+    SG13 --> SG14
+    SG13 --> SG15
+
+    SG2 -. "plan before preview" .-> SG5
+    SG10 -. "choices before approval" .-> SG11
+    SG11 -. "approved swaps" .-> SG14
+    SG14 -. "latest checklist" .-> SG15
+    SG17 -. "do not silently alter" .-> SG15
+
+    subgraph CUTOFF["C-1: Change-request cutoff -- conflicting A2 proposals"]
+        REQ24["Proposal A: stop changes 24 hours before packing"]
+        REQWED["Proposal B: Wednesday evening for Friday pickup"]
+        REQ24 -. "potentially different deadlines" .-> REQWED
+        RULE["D-1: Proposed V1 rule: use the EARLIER deadline"]
+        NOTE["Open: exact packing schedule and stakeholder agreement"]
+        REQ24 -.-> RULE
+        REQWED -.-> RULE
+        RULE -.-> NOTE
+    end
+
+    SG16 -. "proposed V1 assumption" .-> RULE
+
+    classDef primary fill:#dbeafe,stroke:#2563eb,color:#172554,stroke-width:2px
+    classDef mid fill:#edf2ff,stroke:#6485b6,color:#1e293b
+    classDef leaf fill:#f8fafc,stroke:#94a3b8,color:#334155
+    classDef alternatives fill:#fff2cf,stroke:#bf8b19,color:#603b06
+    classDef decision fill:#e2f4e8,stroke:#3f8a58,color:#14532d
+    classDef unresolved fill:#fde8e8,stroke:#c74b4b,color:#7f1d1d
+
+    class SG1 primary
+    class SG2,SG5,SG8,SG13 mid
+    class SG3,SG4,SG6,SG7,SG9,SG10,SG11,SG12,SG14,SG15,SG16,SG17 leaf
+    class REQ24,REQWED alternatives
+    class RULE decision
+    class NOTE unresolved
+'''
 
 
-def leaf(id_, label, agent, operation, software=False):
-    category = (
-        OperationCategory.SOFTWARE_TO_BE_OPERATION
-        if software else OperationCategory.ENVIRONMENT_OPERATION
-    )
-    return AchieveGoal(
-        f"{id_}: {label}",
-        leaf=True,
-        performs=[PerformanceLink(agent, Operation(operation, category))],
-    )
+def mermaid_edit_link(code: str) -> str:
+    """Produce the pako link format recognized by mermaid.live."""
+    payload = json.dumps(
+        {"code": code, "mermaid": {"theme": "neutral"}},
+        separators=(",", ":"),
+    ).encode("utf-8")
+    compressed = zlib.compress(payload, level=9)
+    encoded = base64.urlsafe_b64encode(compressed).decode("ascii").rstrip("=")
+    return "https://mermaid.live/edit#pako:" + encoded
 
 
-def parent(id_, label, children, maintain=False):
-    cls = MaintainGoal if maintain else AchieveGoal
-    return cls(
-        f"{id_}: {label}",
-        refinements=[Refinement(False, children, "H4")],
-    )
+def main() -> None:
+    output = Path(__file__).with_name("goal_model_sprint.mmd")
+    output.write_text(MERMAID + "\n", encoding="utf-8")
+    print("=== PROPOSED A3 SPRINT MODEL (Step 1 + Step 2) ===")
+    print(mermaid_edit_link(MERMAID))
+    print(f"\nMermaid source saved to: {output.name}")
+    print("Status: model and V1 cutoff are PROPOSALS; group approval is still needed.")
 
-
-# Box planning: core farm operation
-sg3 = leaf("SG-3", "Review available produce for this week's boxes", lucia,
-           "Review mock harvest quantities")
-sg4 = leaf("SG-4", "Choose contents that meet the promised share value", lucia,
-           "Choose the box mix")
-sg2 = parent("SG-2", "Create a feasible weekly CSA box plan", [sg3, sg4])
-
-# Clear, reliable information: member-facing operation
-sg6 = leaf("SG-6", "Show the early box estimate as provisional", system,
-           "Display provisional preview", True)
-sg7 = leaf("SG-7", "Show current confirmed contents and later changes", system,
-           "Publish final list and indicate changes", True)
-sg5 = parent("SG-5", "Members can see dependable box information", [sg6, sg7], True)
-
-# Swap requests: unresolved operational rules, displayed without inventing a cutoff
-sg9 = leaf("SG-9", "Submit a swap request before the agreed cutoff", member,
-           "Request a substitution")
-sg10 = leaf("SG-10", "Show farm-approved substitute choices", system,
-            "Display available alternatives", True)
-sg11 = leaf("SG-11", "Review and approve or decline each request", lucia,
-            "Review requests")
-sg12 = leaf("SG-12", "Show the request status to Lucia and the member", system,
-            "Display current request status", True)
-sg8 = parent("SG-8", "Handle member swaps within farm limits",
-             [sg9, sg10, sg11, sg12])
-
-# Packing: fulfills approved requests in the actual box
-sg14 = leaf("SG-14", "Update the packing list after an approved swap", system,
-            "Update member packing checklist", True)
-sg15 = leaf("SG-15", "Check each packed box against the current list", packer,
-            "Verify finished box")
-sg13 = parent("SG-13", "Pack the correct contents for each member", [sg14, sg15])
-
-sg1 = parent("SG-1", "Weekly CSA boxes are planned and packed correctly",
-             [sg2, sg5, sg8, sg13])
 
 if __name__ == "__main__":
-    diagram = generate_graph([sg1], [])
-    print("=== PROPOSED A3 V1 SPRINT GOAL MODEL ===")
-    print(generate_pako_link(diagram, "edit"))
+    main()
