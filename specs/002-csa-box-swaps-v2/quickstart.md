@@ -1,35 +1,31 @@
-# Quickstart: 001-csa-box-swaps (V1)
-
-## Prerequisites
-Node 20+.
+# Quickstart: 002-csa-box-swaps-v2 (V2)
 
 ## Run locally
 ```bash
 cd frontend
 npm install
-npm run dev        # http://localhost:5173/ReqsforInfoSys/v1/
-npm test           # domain rule unit tests (Vitest)
-npm run build:v1   # writes ../v1 for GitHub Pages
+npm test           # domain rule tests (Vitest)
+npm run build:v2   # writes ../v2 for GitHub Pages
 ```
 
-Deployed: https://jyeh2.github.io/ReqsforInfoSys/v1/
+Deployed: https://jyeh2.github.io/ReqsforInfoSys/v2/ (V1 stays at /v1/)
 
-## Validation walkthrough (maps to acceptance scenarios)
-
+## V2 validation walkthrough
 Start with **Reset demo**. Clock: Mon 09:00.
 
-1. **Member** (any): box shows "Not published yet". → US2-1
-2. **Lucia / Planner**: set Heirloom tomatoes to 2 → infeasible flag, publish disabled. Set back
-   to 0. Lower items until value < $25 → shortfall shown, publish disabled. Restore. → US1-1..3
-3. **Publish** → status Provisional. **Member**: provisional label shown. → US1-4, US2-2
-4. **Confirm** → **Member** sees "Confirmed at Mon 09:00". **Packer** sees lists. → US1-5, US2-3
-5. **Member (Raj)**: cutoff shown as Wed 08:00, labeled provisional. Request Potatoes → Sweet
-   potatoes. Status Pending. → US3-1..3
-6. **Lucia / Requests**: approve. **Raj**: status Approved, box marks change.
-   **Packer**: Raj's list shows Sweet potatoes (swap). → US3-4, US2-4, US4-1
-7. **Member (Mei)**: request and have Lucia decline → box unchanged. → US3-5
-8. Clock **Wed 08:00**: member sees "cutoff has passed"; submitting anyway records the request as
-   Declined with the cutoff reason, visible to Lucia; box unchanged. → US3-6
-9. Submit a request before cutoff, leave it pending, clock **Thu 08:00** → status "Not reviewed
-   before packing", packing list unchanged. → US4-3, edge case
-10. **Packer**: check all lines → "Mark box checked" enabled → Checked. → US4-2
+1. **Lucia**: while Draft, a warning says members can't swap until publish, with time left until the
+   Wed 20:00 cutoff. → US3-9, FR-023
+2. Cutoff panel shows the D-2 cutoff (Wed 20:00) plus Proposals A, B and C, labeled provisional. → FR-009
+3. Publish. Change Apples 2 → 3 lb. **Member (Raj)**: Apples line marked "Changed since first estimate:
+   was 2 lb Apples". → US2-5, O-1
+4. **Raj**: request Potatoes → Sweet potatoes; the message shows "Pending". **Lucia** approves; Raj's
+   message now shows "Approved". → FR-013, O-9
+5. **Lucia**: confirm. **Raj**: "Different from the first estimate" lists Apples 2 → 3 lb; the Sweet
+   potatoes line is marked "Your approved swap (replaces 2 lb Potatoes)". → US2-6, US2-7, O-8, O-10
+6. Clock **Wed 12:00**: swaps are still open (V1 would have closed them at Wed 08:00). → O-2
+7. Clock **Wed 21:00**: member sees "Swap requests closed … the packing list locks at Thu 11-12
+   08:00"; submitting records "Declined — Received after the swap cutoff (Wed 11-11 20:00)"; no
+   requirement IDs on screen. → US3-6, US3-8, O-3, O-7
+8. Reset; clock **Wed 21:00**; Lucia publishes a Draft → member sees "Swap requests were not
+   available this week". → FR-023 edge case
+9. V1 regression: packing, late handling and Checked behave as in V1 quickstart steps 9–10.
