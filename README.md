@@ -63,10 +63,23 @@ npm run build:v2    # rebuild the V2 deployment into ../v2
 
 ## Roles and Responsibilities
 
-<!-- TODO(group): replace each row with a member's name and a brief description of their contributions. -->
+**jyeh2: Spec and implementation**
+- Spec Kit setup and project constitution
+- V1 and V2 specs, plans and tasks (`specs/001`, `specs/002`)
+- V2 clarify and analyze passes
+- Prototype code, unit tests and GitHub Pages deployment
 
-| Member | Contributions |
-|---|---|
-| TODO | TODO |
-| TODO | TODO |
-| TODO | TODO |
+**Haozhe Lu: Goal modeling**
+- Merged the individual goal models into the sprint goal model
+- `goal_model_sprint.py` and the V1/V2 diagrams
+- SG crosswalk, goal relationships and cutoff conflict (C-1)
+
+**prak13: Evaluation and documentation**
+- V1 prototype evaluation (O-1 to O-12)
+- Requirements Analysis and Learning Log
+- Transcript citation index and README docs
+
+**Shared**
+- Sprint goal selection (SG-2, SG-5, SG-8, SG-13)
+- Cutoff decision (D-1, then D-2)
+- One interview set each (T1 to T3)
